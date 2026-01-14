@@ -61,10 +61,7 @@ func (m model) View() string {
 		s += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
 	}
 
-	// The footer
-	s += "\nPress q to quit.\n"
-
-	// Send the UI for rendering
+	s += "\n按 ↑/↓ 导航, Enter 选择, q 退出\n"
 	return s
 }
 
@@ -88,6 +85,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		case "enter":
 			m.selected = m.cursor
+
 		}
 	}
 	return m, nil
