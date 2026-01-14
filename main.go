@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"password-management/command"
-
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -19,7 +17,16 @@ func init() {
 		Long:  "极光密码管理工具 - 一个安全、便捷的密码管理器",
 		Run: func(cmd *cobra.Command, args []string) {
 			color.Green("✓ 您好，欢迎使用极光密码管理工具！")
-			command.ExcuteBubbleTeaMenu()
+			fmt.Printf("args: %v\n", args)
+			if len(args) > 0 {
+				if args[0] == "add" {
+					// 1, 2, 3分别是账号，密码，备注
+					account := args[1]
+					password := args[2]
+					remark := args[3]
+					fmt.Printf("account: %s, password: %s, remark: %s\n", account, password, remark)
+				}
+			}
 		},
 	}
 }
