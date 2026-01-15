@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	redisDB "password-management/database/redis-db"
+
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -11,6 +13,7 @@ import (
 var rootCmd *cobra.Command
 
 func init() {
+	redisDB.Connect()
 	rootCmd = &cobra.Command{
 		Use:   "aurora-password-manager",
 		Short: "极光密码管理工具",
