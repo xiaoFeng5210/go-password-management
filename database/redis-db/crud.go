@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	myCommand "password-management/command"
 
 	"github.com/fatih/color"
 	"github.com/redis/go-redis/v9"
@@ -26,7 +27,7 @@ func AddPassword(account string, password string, remark string) error {
 }
 
 func UpdatePassword(account string, password string) error {
-	hmap := make(map[string]interface{})
+	hmap := make(map[string]string)
 	for field, value := range Client.HGetAll(context.Background(), account).Val() {
 		hmap[field] = value
 	}
@@ -77,5 +78,11 @@ func GetPassword(account string) error {
 	fmt.Printf("password: %s, remark: %s", password, remark)
 	fmt.Printf("\n")
 
+	myCommand.CopyToClipboard(password)
+	if err != nil {
+		color.Yellow("copy password failed: %v", err)
+		return errors.New("copy password failed")
+	}
+	color.Green("copy password success")
 	return nil
 }
