@@ -28,6 +28,12 @@ func init() {
 					password := args[2]
 					remark := args[3]
 					fmt.Printf("account: %s, password: %s, remark: %s\n", account, password, remark)
+					err := redisDB.AddPassword(account, password, remark)
+					if err != nil {
+						color.Red("添加密码失败: %v", err)
+					} else {
+						color.Green("添加密码成功")
+					}
 				}
 			}
 		},
