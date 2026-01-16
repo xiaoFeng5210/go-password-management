@@ -15,7 +15,7 @@ var rootCmd *cobra.Command
 func init() {
 	redisDB.Connect()
 	rootCmd = &cobra.Command{
-		Use:   "aurora-password-manager",
+		Use:   "aurora-pwm",
 		Short: "极光密码管理工具",
 		Long:  "极光密码管理工具 - 一个安全、便捷的密码管理器",
 		Run: func(cmd *cobra.Command, args []string) {
