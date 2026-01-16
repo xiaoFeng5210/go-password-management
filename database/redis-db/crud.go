@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
+	"github.com/redis/go-redis/v9"
 )
 
 func AddPassword(account string, password string, remark string) error {
@@ -43,4 +44,38 @@ func UpdatePassword(account string, password string) error {
 		color.Yellow("password is empty")
 		return errors.New("password is empty")
 	}
+}
+
+func DeletePassword(account string) error {
+	err := Client.Del(context.Background(), account).Err()
+	if err != nil {
+		color.Red("delete password failed: %v", err)
+		return errors.New("delete password failed")
+	}
+	color.Green("delete password success")
+	return nil
+}
+
+func GetPassword(account string) error {
+	var err error
+	var password string
+	var remark string
+	password, err = Client.HGet(context.Background(), account, "password").Result()
+	if err != nil {
+		if errors.Is(err, redis.Nil) {
+			color.Yellow("key %s 不存在", account)
+			return errors.New("key not found")
+		}
+	}
+	remark, err = Client.HGet(context.Background(), account, "remark").Result()
+	if err != nil {
+		if errors.Is(err, redis.Nil) {
+			color.Yellow("key %s 不存在", account)
+			return errors.New("key not found")
+		}
+	}
+	fmt.Printf("password: %s, remark: %s", password, remark)
+	fmt.Printf("\n")
+
+	return nil
 }
