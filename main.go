@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	redisDB "password-management/database/redis-db"
+	redisDB "github.com/xiaoFeng5210/go-password-management/database/redis-db"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -19,7 +19,8 @@ func init() {
 		Short: "极光密码管理工具",
 		Long:  "极光密码管理工具 - 一个安全、便捷的密码管理器",
 		Run: func(cmd *cobra.Command, args []string) {
-			color.Green("✓ 您好，欢迎使用极光密码管理工具！")
+			color.Magenta("✨ 您好，欢迎使用极光密码管理工具！")
+			color.Blue("==============content================")
 			if len(args) > 0 {
 				switch args[0] {
 				case "add":

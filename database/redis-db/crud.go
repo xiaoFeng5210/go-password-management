@@ -4,7 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	myCommand "password-management/command"
+
+	myCommand "github.com/xiaoFeng5210/go-password-management/command"
 
 	"github.com/fatih/color"
 	"github.com/redis/go-redis/v9"
@@ -75,8 +76,7 @@ func GetPassword(account string) error {
 			return errors.New("key not found")
 		}
 	}
-	fmt.Printf("password: %s, remark: %s", password, remark)
-	fmt.Printf("\n")
+	color.Cyan("password: %s, remark: %s", password, remark)
 
 	myCommand.CopyToClipboard(password)
 	if err != nil {
